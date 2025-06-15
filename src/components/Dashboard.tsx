@@ -36,7 +36,7 @@ const Dashboard = ({ userProfile, onProfileUpdate }: DashboardProps) => {
             <ThemeToggle />
             <EditProfileDialog 
               userProfile={userProfile} 
-              onSave={onProfileUpdate} 
+              onProfileUpdate={onProfileUpdate} 
             />
           </div>
         </div>
@@ -110,7 +110,7 @@ const Dashboard = ({ userProfile, onProfileUpdate }: DashboardProps) => {
           {activeTab === 'journal' && (
             <div>
               <h2 className="text-2xl font-bold mb-4">Reflection Journal</h2>
-              <ReflectionJournal userId={userProfile?.id} />
+              <ReflectionJournal />
             </div>
           )}
 
