@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { UserProfile } from '../types/user';
 import EditProfileDialog from './EditProfileDialog';
@@ -107,10 +108,10 @@ const Dashboard = ({ userProfile, onProfileUpdate }: DashboardProps) => {
             </div>
           )}
 
-          {activeTab === 'journal' && (
+          {activeTab === 'journal' && userProfile && (
             <div>
               <h2 className="text-2xl font-bold mb-4">Reflection Journal</h2>
-              <ReflectionJournal />
+              <ReflectionJournal userProfile={userProfile} />
             </div>
           )}
 
