@@ -2,12 +2,13 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ConversationInterface from './ConversationInterface';
 import LifePathVisualization from './LifePathVisualization';
 import ReflectionJournal from './ReflectionJournal';
 import { UserProfile } from '../types/user';
 import { useAuth } from '@/contexts/AuthContext';
-import { MessageSquare, Target, FileText, User, LogOut } from 'lucide-react';
+import { MessageSquare, Target, FileText, User, LogOut, MapPin, Briefcase, Users } from 'lucide-react';
 
 interface DashboardProps {
   userProfile: UserProfile | null;
@@ -15,13 +16,23 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
   const [activeTab, setActiveTab] = useState('conversation');
-  const { signOut } = useAuth();
-
-  if (!userProfile) return null;
+  const { signOut, user } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
   };
+
+  if (!userProfile) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
+        <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm p-8">
+          <CardContent className="text-center">
+            <div className="text-slate-600">Loading your profile...</div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -59,8 +70,66 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
         </div>
       </div>
 
+      {/* User Profile Summary */}
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-slate-800 flex items-center">
+              <User className="w-5 h-5 mr-2" />
+              Your Profile
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <User className="w-4 h-4 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 uppercase tracking-wider">Name</p>
+                  <p className="text-slate-900 font-medium">{userProfile.name}</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-green-100 rounded-lg">
+                  <Briefcase className="w-4 h-4 text-green-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 uppercase tracking-wider">Career</p>
+                  <p className="text-slate-900 font-medium">{userProfile.currentCareer || 'Not specified'}</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-purple-100 rounded-lg">
+                  <MapPin className="w-4 h-4 text-purple-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 uppercase tracking-wider">Location</p>
+                  <p className="text-slate-900 font-medium">{userProfile.location || 'Not specified'}</p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center space-x-3">
+              <div className="p-2 bg-orange-100 rounded-lg">
+                <Users className="w-4 h-4 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 uppercase tracking-wider">Relationship Status</p>
+                <p className="text-slate-900 font-medium">{userProfile.relationshipStatus || 'Not specified'}</p>
+              </div>
+            </div>
+            {user && (
+              <div className="mt-4 pt-4 border-t border-slate-200">
+                <p className="text-xs text-slate-500">Email: {user.email}</p>
+                <p className="text-xs text-slate-500">User ID: {user.id}</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 pb-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3 bg-white/80 backdrop-blur-lg shadow-sm border border-slate-200/60 rounded-xl p-1">
             <TabsTrigger 
