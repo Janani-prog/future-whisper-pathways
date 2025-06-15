@@ -93,6 +93,10 @@ const Index = () => {
     }
   };
 
+  const handleProfileUpdate = (updatedProfile: UserProfile) => {
+    setUserProfile(updatedProfile);
+  };
+
   if (loading || profileLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center">
@@ -109,7 +113,7 @@ const Index = () => {
     return <OnboardingFlow onComplete={handleOnboardingComplete} />;
   }
 
-  return <Dashboard userProfile={userProfile} />;
+  return <Dashboard userProfile={userProfile} onProfileUpdate={handleProfileUpdate} />;
 };
 
 export default Index;

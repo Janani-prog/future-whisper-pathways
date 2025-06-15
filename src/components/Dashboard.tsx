@@ -21,15 +21,17 @@ import {
 import ConversationInterface from './ConversationInterface';
 import LifePathVisualization from './LifePathVisualization';
 import ReflectionJournal from './ReflectionJournal';
+import EditProfileDialog from './EditProfileDialog';
 import { UserProfile } from '../types/user';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageSquare, Target, FileText, User, LogOut, MapPin, Briefcase, Users, Clock } from 'lucide-react';
 
 interface DashboardProps {
   userProfile: UserProfile | null;
+  onProfileUpdate?: (updatedProfile: UserProfile) => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
+const Dashboard: React.FC<DashboardProps> = ({ userProfile, onProfileUpdate }) => {
   const [activeTab, setActiveTab] = useState('conversation');
   const [futureYearsAhead, setFutureYearsAhead] = useState(10);
   const { signOut, user } = useAuth();
@@ -158,6 +160,17 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
                     )}
                   </div>
                   <DropdownMenuSeparator />
+                  {onProfileUpdate && (
+                    <>
+                      <div className="px-2 py-1">
+                        <EditProfileDialog 
+                          userProfile={userProfile} 
+                          onProfileUpdate={onProfileUpdate} 
+                        />
+                      </div>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
                   <DropdownMenuItem onClick={handleSignOut} className="text-red-600 cursor-pointer">
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
