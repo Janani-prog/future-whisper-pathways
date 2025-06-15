@@ -10,7 +10,7 @@
 
 Future Whisper Pathways is an innovative AI life simulation app where users interact with their "future self" to explore the long-term consequences of major life decisions. This isn't just another decision-making tool—it's a personalized AI mentor that helps users visualize and plan their optimal life path through intelligent conversations, scenario simulations, and data-driven insights.
 
-Built with cutting-edge AI technology and developed using [Lovable](https://lovable.dev)'s AI-powered platform, this application represents the future of personalized life coaching and decision support systems.
+Built with cutting-edge AI technology and modern web development practices, this application represents the future of personalized life coaching and decision support systems.
 
 ## ✨ Key Features
 
@@ -60,15 +60,15 @@ Built with cutting-edge AI technology and developed using [Lovable](https://lova
 - **UI Components**: Modern, accessible component library
 
 ### AI & Backend
-- **AI Integration**: OpenAI GPT-4 or Claude for conversation engine
+- **AI Integration**: Gemini for conversation engine
 - **Backend**: FastAPI or Node.js with real-time capabilities
 - **Database**: Vector database for personalized context storage
 - **Real-time**: WebSocket connections for seamless chat experience
 
 ### Development & Deployment
-- **Platform**: Lovable AI-powered development
-- **Deployment**: Automated through Lovable Platform
-- **Version Control**: Git with automated CI/CD
+- **Architecture**: Modern full-stack web application
+- **Deployment**: Automated CI/CD pipeline
+- **Version Control**: Git with feature branching workflow
 
 ## 🎯 Use Cases
 
@@ -131,18 +131,11 @@ Built with cutting-edge AI technology and developed using [Lovable](https://lova
 
 ### Development Workflow
 
-There are two ways to work on this project:
-
-#### 1. **Using Lovable (Recommended)**
-- Visit the [Lovable Project](https://lovable.dev)
-- Start prompting with natural language
-- Changes are automatically committed to the repository
-- Real-time preview and deployment
-
-#### 2. **Local Development**
+#### **Standard Development Process**
 - Clone and work in your preferred IDE
-- Push changes to sync with Lovable
-- Standard Git workflow applies
+- Follow Git feature branch workflow
+- Implement comprehensive testing
+- Deploy through automated CI/CD pipeline
 
 ## 📁 Project Structure
 
@@ -161,14 +154,14 @@ future-whisper-pathways/
 
 ## 🚀 Deployment
 
-This project is automatically deployed through Lovable's platform. Every change made through Lovable or pushed to the main branch triggers an automatic deployment.
+This project is automatically deployed through modern CI/CD practices. Every change pushed to the main branch triggers an automatic build and deployment process.
 
 ### Manual Deployment
 
 If you're working locally and want to deploy:
 
 1. Push your changes to the main branch
-2. Lovable automatically builds and deploys
+2. CI/CD pipeline automatically builds and deploys
 3. Your changes will be live at the app URL
 
 ## 🤝 Contributing
@@ -222,80 +215,10 @@ VITE_ANALYTICS_ID=your_analytics_id
 
 The project uses Tailwind CSS for styling. Configuration can be found in `tailwind.config.js`.
 
-## 🎯 Market Opportunity
-
-### Target Market
-- **Individual Users**: People facing major life decisions (career changes, education, relationships)
-- **Corporate Wellness**: Companies investing in employee development and life planning
-- **Educational Institutions**: Career counseling and student guidance programs
-- **Professional Coaches**: Life coaches and career counselors seeking AI-enhanced tools
-
-### Market Size
-- Career Coaching Market: $15B globally
-- Life Coaching Market: $15B globally  
-- Mental Wellness Apps: $5.6B globally
-- Corporate Wellness: $58B globally
-
-### Competitive Advantages
-- **First-of-its-kind** AI future self interaction technology
-- **Long-term decision focus** vs. immediate problem-solving
-- **Emotional intelligence integration** for personalized experiences
-- **Data-driven insights** with measurable user outcomes
-- **Scalable AI architecture** for enterprise applications
-
-## 🚀 Roadmap
-
-### Phase 1: Core Platform ✅
-- AI conversation engine
-- Basic future self generation
-- Decision simulation framework
-- Life path visualization
-
-### Phase 2: Enhanced AI 🔄
-- Advanced personality modeling
-- Improved prediction accuracy
-- Multi-modal interactions (voice, video)
-- Real-time data integration
-
-### Phase 3: Community & Sharing 📅
-- Social features and community building
-- Mentorship matching algorithms
-- Success story sharing platform
-- Group challenges and competitions
-
-### Phase 4: Enterprise Solutions 🔮
-- Corporate wellness integrations
-- Educational institution licensing
-- Professional coaching tools
-- API for third-party developers
-
-## 🐛 Issues
-
-If you encounter any issues:
-
-1. Check the [Issues](../../issues) page
-2. Create a new issue with detailed information
-3. Use the Lovable platform for AI-assisted debugging
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
-
-- Built with [Lovable](https://lovable.dev) - AI-powered development platform
-- Icons by [Lucide](https://lucide.dev)
-- Styling by [Tailwind CSS](https://tailwindcss.com)
-
-## 📞 Support
-
-For support and questions:
-- 📧 Email: [your-email@example.com]
-- 💬 Discussion: Use GitHub Discussions
-- 🐛 Bugs: Create an issue
-
----
-
-**🚀 Built with AI-powered development through [Lovable](https://lovable.dev)**
+**🚀 Innovative AI-powered life simulation platform**
 
 *"Where tomorrow's possibilities whisper today's solutions."*
