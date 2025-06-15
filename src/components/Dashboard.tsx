@@ -11,12 +11,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import ConversationInterface from './ConversationInterface';
 import LifePathVisualization from './LifePathVisualization';
 import ReflectionJournal from './ReflectionJournal';
 import { UserProfile } from '../types/user';
 import { useAuth } from '@/contexts/AuthContext';
-import { MessageSquare, Target, FileText, User, LogOut, MapPin, Briefcase, Users } from 'lucide-react';
+import { MessageSquare, Target, FileText, User, LogOut, MapPin, Briefcase, Users, Clock } from 'lucide-react';
 
 interface DashboardProps {
   userProfile: UserProfile | null;
@@ -24,11 +31,20 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
   const [activeTab, setActiveTab] = useState('conversation');
+  const [futureYearsAhead, setFutureYearsAhead] = useState(10);
   const { signOut, user } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
   };
+
+  const futureAgeOptions = [
+    { value: 5, label: '5 years ahead' },
+    { value: 10, label: '10 years ahead' },
+    { value: 15, label: '15 years ahead' },
+    { value: 20, label: '20 years ahead' },
+    { value: 25, label: '25 years ahead' },
+  ];
 
   if (!userProfile) {
     return (
@@ -41,6 +57,12 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
       </div>
     );
   }
+
+  // Create a modified user profile with the selected future age
+  const modifiedUserProfile = {
+    ...userProfile,
+    futureAge: userProfile.age + futureYearsAhead
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -60,7 +82,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
             <div className="flex items-center space-x-6">
               <div className="text-right">
                 <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Your Future Self</p>
-                <p className="text-slate-900 font-semibold text-lg">Age {userProfile.age + 10}</p>
+                <p className="text-slate-900 font-semibold text-lg">Age {userProfile.age + futureYearsAhead}</p>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -68,7 +90,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
                     <User className="w-6 h-6 text-white" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80">
+                <DropdownMenuContent align="end" className="w-80 bg-white shadow-xl border border-slate-200">
                   <DropdownMenuLabel className="text-slate-800">User Profile</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="p-4 space-y-4">
@@ -108,10 +130,30 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
                         <p className="text-slate-900 font-medium">{userProfile.relationshipStatus || 'Not specified'}</p>
                       </div>
                     </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-indigo-100 rounded-lg">
+                        <Clock className="w-4 h-4 text-indigo-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Future Age</p>
+                        <Select value={futureYearsAhead.toString()} onValueChange={(value) => setFutureYearsAhead(parseInt(value))}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border border-slate-200 shadow-lg">
+                            {futureAgeOptions.map((option) => (
+                              <SelectItem key={option.value} value={option.value.toString()}>
+                                Age {userProfile.age + option.value} ({option.label})
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
                     {user && (
                       <div className="pt-4 border-t border-slate-200">
                         <p className="text-xs text-slate-500">Email: {user.email}</p>
-                        <p className="text-xs text-slate-500">Age: {userProfile.age}</p>
+                        <p className="text-xs text-slate-500">Current Age: {userProfile.age}</p>
                       </div>
                     )}
                   </div>
@@ -166,13 +208,24 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
                 </div>
               </div>
             </div>
-            <div className="mt-4 flex items-center space-x-3">
-              <div className="p-2 bg-orange-100 rounded-lg">
-                <Users className="w-4 h-4 text-orange-600" />
+            <div className="mt-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-orange-100 rounded-lg">
+                  <Users className="w-4 h-4 text-orange-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 uppercase tracking-wider">Relationship Status</p>
+                  <p className="text-slate-900 font-medium">{userProfile.relationshipStatus || 'Not specified'}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs text-slate-500 uppercase tracking-wider">Relationship Status</p>
-                <p className="text-slate-900 font-medium">{userProfile.relationshipStatus || 'Not specified'}</p>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-indigo-100 rounded-lg">
+                  <Clock className="w-4 h-4 text-indigo-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 uppercase tracking-wider">Talking to Future Self</p>
+                  <p className="text-slate-900 font-medium">Age {userProfile.age + futureYearsAhead} ({futureYearsAhead} years ahead)</p>
+                </div>
               </div>
             </div>
             {user && (
@@ -214,15 +267,15 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
 
           <div className="mt-8">
             <TabsContent value="conversation" className="space-y-6 mt-0">
-              <ConversationInterface userProfile={userProfile} />
+              <ConversationInterface userProfile={modifiedUserProfile} />
             </TabsContent>
 
             <TabsContent value="visualization" className="space-y-6 mt-0">
-              <LifePathVisualization userProfile={userProfile} />
+              <LifePathVisualization userProfile={modifiedUserProfile} />
             </TabsContent>
 
             <TabsContent value="journal" className="space-y-6 mt-0">
-              <ReflectionJournal userProfile={userProfile} />
+              <ReflectionJournal userProfile={modifiedUserProfile} />
             </TabsContent>
           </div>
         </Tabs>

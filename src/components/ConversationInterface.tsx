@@ -9,15 +9,18 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 interface ConversationInterfaceProps {
-  userProfile: UserProfile;
+  userProfile: UserProfile & { futureAge?: number };
 }
 
 const ConversationInterface: React.FC<ConversationInterfaceProps> = ({ userProfile }) => {
+  const futureAge = userProfile.futureAge || userProfile.age + 10;
+  const yearsAhead = futureAge - userProfile.age;
+  
   const [messages, setMessages] = useState<ConversationMessage[]>([
     {
       id: '1',
       role: 'future-self',
-      content: `Hey ${userProfile.name}! It's wonderful to finally connect with you. I'm you, 10 years from now, and I have to say - you're about to make some incredible decisions that will shape our amazing future. I remember being ${userProfile.age} and feeling ${userProfile.dreamScenario ? 'excited about my dreams' : 'uncertain about the path ahead'}. What's on your mind today?`,
+      content: `Hey ${userProfile.name}! It's wonderful to finally connect with you. I'm you, ${yearsAhead} years from now, and I have to say - you're about to make some incredible decisions that will shape our amazing future. I remember being ${userProfile.age} and feeling ${userProfile.dreamScenario ? 'excited about my dreams' : 'uncertain about the path ahead'}. What's on your mind today?`,
       timestamp: new Date(),
       emotion: 'encouraging'
     }
@@ -35,6 +38,19 @@ const ConversationInterface: React.FC<ConversationInterfaceProps> = ({ userProfi
     scrollToBottom();
   }, [messages]);
 
+  // Reset conversation when future age changes
+  useEffect(() => {
+    setMessages([
+      {
+        id: '1',
+        role: 'future-self',
+        content: `Hey ${userProfile.name}! It's wonderful to finally connect with you. I'm you, ${yearsAhead} years from now, and I have to say - you're about to make some incredible decisions that will shape our amazing future. I remember being ${userProfile.age} and feeling ${userProfile.dreamScenario ? 'excited about my dreams' : 'uncertain about the path ahead'}. What's on your mind today?`,
+        timestamp: new Date(),
+        emotion: 'encouraging'
+      }
+    ]);
+  }, [futureAge, userProfile.name, userProfile.age, yearsAhead, userProfile.dreamScenario]);
+
   const handleSendMessage = async () => {
     if (!currentMessage.trim() || isTyping) return;
 
@@ -50,10 +66,16 @@ const ConversationInterface: React.FC<ConversationInterfaceProps> = ({ userProfi
     setIsTyping(true);
 
     try {
+      // Create modified user profile for the API call
+      const modifiedProfile = {
+        ...userProfile,
+        age: futureAge // Use the future age for the API call
+      };
+
       const { data, error } = await supabase.functions.invoke('chat-with-future-self', {
         body: {
           message: currentMessage,
-          userProfile: userProfile,
+          userProfile: modifiedProfile,
           conversationHistory: messages
         }
       });
@@ -115,7 +137,7 @@ const ConversationInterface: React.FC<ConversationInterfaceProps> = ({ userProfi
           <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4">
             <CardTitle className="flex items-center text-xl font-semibold">
               <Sparkles className="w-5 h-5 mr-3 text-amber-300" />
-              Future You (Age {userProfile.age + 10})
+              Future You (Age {futureAge})
               <div className="ml-auto flex items-center text-sm bg-white/20 px-3 py-1 rounded-full">
                 <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                 Online
@@ -222,7 +244,11 @@ const ConversationInterface: React.FC<ConversationInterfaceProps> = ({ userProfi
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
                 <span className="text-sm font-medium text-slate-600">Age</span>
-                <span className="text-sm font-semibold text-slate-900">{userProfile.age + 10} years old</span>
+                <span className="text-sm font-semibold text-slate-900">{futureAge} years old</span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                <span className="text-sm font-medium text-slate-600">Years Ahead</span>
+                <span className="text-sm font-semibold text-slate-900">{yearsAhead} years</span>
               </div>
               <div className="p-3 bg-slate-50 rounded-xl">
                 <span className="text-sm font-medium text-slate-600 block mb-2">Core Values</span>
