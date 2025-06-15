@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
-import { Sparkles, ArrowRight, LogIn, UserPlus } from 'lucide-react';
+import { Sparkles, ArrowRight, LogIn, UserPlus, Target } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Auth = () => {
@@ -62,61 +62,70 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 text-white">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full w-fit">
-              <Sparkles className="w-8 h-8 text-black" />
+        {/* Hero Section */}
+        <div className="text-center mb-8">
+          <div className="mx-auto mb-6 p-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl w-fit shadow-xl">
+            <Target className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Future You</h1>
+          <p className="text-slate-600 text-lg">Connect with your future self</p>
+        </div>
+
+        <Card className="bg-white/90 backdrop-blur-xl border-slate-200/60 shadow-2xl rounded-2xl overflow-hidden">
+          <CardHeader className="text-center px-8 py-6">
+            <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl w-fit shadow-lg">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold">
+            <CardTitle className="text-2xl font-bold text-slate-900">
               {isLogin ? 'Welcome Back' : 'Create Account'}
             </CardTitle>
-            <CardDescription className="text-white/70">
+            <CardDescription className="text-slate-600 mt-2 leading-relaxed">
               {isLogin 
                 ? 'Sign in to continue your journey with your future self' 
                 : 'Start your journey to meet your future self'
               }
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <CardContent className="px-8 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {!isLogin && (
-                <div>
-                  <Label htmlFor="name">Full Name</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-slate-700 font-medium">Full Name</Label>
                   <Input
                     id="name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                    className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                     placeholder="Enter your full name"
                     required={!isLogin}
                   />
                 </div>
               )}
               
-              <div>
-                <Label htmlFor="email">Email</Label>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-slate-700 font-medium">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                   placeholder="Enter your email"
                   required
                 />
               </div>
               
-              <div>
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                   placeholder="Enter your password"
                   required
                 />
@@ -125,9 +134,14 @@ const Auth = () => {
               <Button 
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-xl shadow-lg transition-all duration-200"
               >
-                {loading ? 'Please wait...' : (
+                {loading ? (
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                    Please wait...
+                  </div>
+                ) : (
                   <>
                     {isLogin ? (
                       <>
@@ -145,15 +159,16 @@ const Auth = () => {
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-white/70 hover:text-white text-sm underline"
+                className="text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors duration-200"
               >
                 {isLogin 
                   ? "Don't have an account? Sign up" 
                   : "Already have an account? Sign in"
                 }
+                <ArrowRight className="w-4 h-4 inline ml-1" />
               </button>
             </div>
           </CardContent>
