@@ -84,9 +84,9 @@ const ReflectionJournal: React.FC<ReflectionJournalProps> = ({ userProfile }) =>
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Journal Entries List */}
       <div className="lg:col-span-1 space-y-4">
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+        <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-white flex items-center">
+            <CardTitle className="text-slate-800 flex items-center">
               <BookOpen className="w-5 h-5 mr-2" />
               Journal Entries
             </CardTitle>
@@ -98,17 +98,17 @@ const ReflectionJournal: React.FC<ReflectionJournalProps> = ({ userProfile }) =>
                 onClick={() => setSelectedEntry(entry.id)}
                 className={`w-full text-left p-3 rounded-lg transition-colors ${
                   selectedEntry === entry.id
-                    ? 'bg-gradient-to-r from-yellow-400/20 to-orange-500/20 border border-yellow-400/30'
-                    : 'bg-white/5 hover:bg-white/10'
+                    ? 'bg-blue-50 border border-blue-200'
+                    : 'bg-slate-50 hover:bg-slate-100'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-white/70">
+                  <span className="text-xs text-slate-500">
                     {entry.date.toLocaleDateString()}
                   </span>
-                  <Heart className={`w-4 h-4 ${entry.content ? 'text-red-400' : 'text-white/30'}`} />
+                  <Heart className={`w-4 h-4 ${entry.content ? 'text-red-500' : 'text-slate-300'}`} />
                 </div>
-                <p className="text-sm text-white line-clamp-2">
+                <p className="text-sm text-slate-700 line-clamp-2">
                   {entry.prompt}
                 </p>
               </button>
@@ -116,23 +116,23 @@ const ReflectionJournal: React.FC<ReflectionJournalProps> = ({ userProfile }) =>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+        <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-white text-sm">New Reflection</CardTitle>
+            <CardTitle className="text-slate-800 text-sm">New Reflection</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {reflectionPrompts.slice(0, 3).map((prompt, index) => (
               <button
                 key={index}
                 onClick={() => addNewEntry(prompt)}
-                className="w-full text-left p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs transition-colors"
+                className="w-full text-left p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs transition-colors"
               >
                 {prompt}
               </button>
             ))}
             <Button
               onClick={() => addNewEntry(reflectionPrompts[Math.floor(Math.random() * reflectionPrompts.length)])}
-              className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black text-sm"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm"
             >
               <PlusCircle className="w-4 h-4 mr-2" />
               Random Prompt
@@ -144,23 +144,23 @@ const ReflectionJournal: React.FC<ReflectionJournalProps> = ({ userProfile }) =>
       {/* Writing Area */}
       <div className="lg:col-span-2 space-y-4">
         {selectedEntryData && (
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+          <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <Calendar className="w-5 h-5 text-yellow-400" />
-                  <span className="text-white text-sm">
+                  <Calendar className="w-5 h-5 text-blue-600" />
+                  <span className="text-slate-700 text-sm">
                     {selectedEntryData.date.toLocaleDateString()}
                   </span>
                 </div>
                 <Button
                   onClick={saveEntry}
-                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black text-sm"
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm"
                 >
                   Save Entry
                 </Button>
               </div>
-              <CardTitle className="text-white text-lg mt-3">
+              <CardTitle className="text-slate-800 text-lg mt-3">
                 {selectedEntryData.prompt}
               </CardTitle>
             </CardHeader>
@@ -169,52 +169,52 @@ const ReflectionJournal: React.FC<ReflectionJournalProps> = ({ userProfile }) =>
                 value={currentContent}
                 onChange={(e) => setCurrentContent(e.target.value)}
                 placeholder="Write your thoughts, feelings, and reflections here..."
-                className="bg-white/10 border-white/20 text-white min-h-[300px] resize-none"
+                className="bg-white border-slate-200 text-slate-800 min-h-[300px] resize-none placeholder:text-slate-400"
               />
             </CardContent>
           </Card>
         )}
 
         {/* Personalized Insights */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+        <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-white">Personalized Insights</CardTitle>
+            <CardTitle className="text-slate-800">Personalized Insights</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {insightfulQuestions.map((question, index) => (
-              <div key={index} className="p-3 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-lg">
-                <p className="text-white text-sm">{question}</p>
+              <div key={index} className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <p className="text-slate-700 text-sm">{question}</p>
               </div>
             ))}
           </CardContent>
         </Card>
 
         {/* Reflection Stats */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+        <Card className="bg-white/95 backdrop-blur-sm border-slate-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-white">Your Reflection Journey</CardTitle>
+            <CardTitle className="text-slate-800">Your Reflection Journey</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-400">{entries.length}</div>
-                <div className="text-white/70 text-sm">Total Entries</div>
+                <div className="text-2xl font-bold text-blue-600">{entries.length}</div>
+                <div className="text-slate-600 text-sm">Total Entries</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-400">
+                <div className="text-2xl font-bold text-green-600">
                   {entries.filter(e => e.content.length > 0).length}
                 </div>
-                <div className="text-white/70 text-sm">Completed</div>
+                <div className="text-slate-600 text-sm">Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-400">7</div>
-                <div className="text-white/70 text-sm">Day Streak</div>
+                <div className="text-2xl font-bold text-purple-600">7</div>
+                <div className="text-slate-600 text-sm">Day Streak</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-400">
+                <div className="text-2xl font-bold text-orange-600">
                   {Math.round(entries.reduce((acc, e) => acc + e.content.length, 0) / entries.length) || 0}
                 </div>
-                <div className="text-white/70 text-sm">Avg Words</div>
+                <div className="text-slate-600 text-sm">Avg Words</div>
               </div>
             </div>
           </CardContent>
