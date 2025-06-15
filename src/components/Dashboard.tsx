@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import ConversationInterface from './ConversationInterface';
 import LifePathVisualization from './LifePathVisualization';
 import ReflectionJournal from './ReflectionJournal';
 import { UserProfile } from '../types/user';
-import { MessageSquare, Target, FileText, User } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { MessageSquare, Target, FileText, User, LogOut } from 'lucide-react';
 
 interface DashboardProps {
   userProfile: UserProfile | null;
@@ -13,8 +15,13 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
   const [activeTab, setActiveTab] = useState('conversation');
+  const { signOut } = useAuth();
 
   if (!userProfile) return null;
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -34,6 +41,14 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
               <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
                 <User className="w-6 h-6 text-black" />
               </div>
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                size="sm"
+                className="text-white/70 hover:text-white hover:bg-white/10"
+              >
+                <LogOut className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
