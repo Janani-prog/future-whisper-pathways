@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { UserProfile } from '../types/user';
-import { ArrowRight, Sparkles, Target, Heart } from 'lucide-react';
+import { ArrowRight, Target, User, Heart } from 'lucide-react';
 
 interface OnboardingFlowProps {
   onComplete: (profile: UserProfile) => void;
@@ -22,17 +22,17 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
 
   const steps = [
     {
-      title: "Welcome to Your Future",
+      title: "Welcome to Future You",
       description: "Let's create your AI future self mentor",
-      icon: <Sparkles className="w-8 h-8" />,
-    },
-    {
-      title: "About You",
-      description: "Tell us about your current situation",
       icon: <Target className="w-8 h-8" />,
     },
     {
-      title: "Your Dreams",
+      title: "Tell Us About Yourself",
+      description: "Share your current situation",
+      icon: <User className="w-8 h-8" />,
+    },
+    {
+      title: "Your Vision & Dreams",
       description: "What does your ideal future look like?",
       icon: <Heart className="w-8 h-8" />,
     },
@@ -57,112 +57,111 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-white/70 text-sm">Step {step + 1} of {steps.length}</span>
-            <span className="text-white/70 text-sm">{Math.round(((step + 1) / steps.length) * 100)}%</span>
+            <span className="text-slate-600 text-sm font-medium">Step {step + 1} of {steps.length}</span>
+            <span className="text-slate-600 text-sm font-medium">{Math.round(((step + 1) / steps.length) * 100)}%</span>
           </div>
-          <div className="w-full bg-white/20 rounded-full h-2">
+          <div className="w-full bg-slate-200 rounded-full h-2">
             <div 
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all duration-500"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 h-2 rounded-full transition-all duration-500"
               style={{ width: `${((step + 1) / steps.length) * 100}%` }}
             />
           </div>
         </div>
 
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 text-white">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full w-fit">
+        <Card className="bg-white/95 backdrop-blur-xl border-slate-200/60 shadow-2xl rounded-2xl overflow-hidden">
+          <CardHeader className="text-center px-8 py-8">
+            <div className="mx-auto mb-6 p-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl w-fit shadow-lg">
               {steps[step].icon}
             </div>
-            <CardTitle className="text-2xl font-bold">{steps[step].title}</CardTitle>
-            <CardDescription className="text-white/70">{steps[step].description}</CardDescription>
+            <CardTitle className="text-3xl font-bold text-slate-900 mb-2">{steps[step].title}</CardTitle>
+            <CardDescription className="text-slate-600 text-lg leading-relaxed">{steps[step].description}</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="px-8 pb-8 space-y-8">
             {step === 0 && (
-              <div className="text-center space-y-4">
-                <p className="text-lg leading-relaxed">
-                  Imagine having a conversation with the wisest version of yourself. 
-                  Your future self has lived through the decisions you're facing today 
-                  and can guide you toward your best possible life.
+              <div className="text-center space-y-6">
+                <p className="text-xl text-slate-700 leading-relaxed">
+                  Connect with the wisest version of yourself. Your future self has lived through 
+                  the decisions you're facing today and can guide you toward your best possible life.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                      <Target className="w-6 h-6" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                  <div className="text-center p-6 bg-blue-50 rounded-xl">
+                    <div className="w-16 h-16 bg-blue-600 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                      <Target className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="font-semibold">Clear Direction</h3>
-                    <p className="text-sm text-white/70">Make decisions with confidence</p>
+                    <h3 className="font-bold text-slate-900 text-lg mb-2">Clear Direction</h3>
+                    <p className="text-slate-600">Make decisions with confidence and purpose</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-green-500/20 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                      <Heart className="w-6 h-6" />
+                  <div className="text-center p-6 bg-green-50 rounded-xl">
+                    <div className="w-16 h-16 bg-green-600 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                      <Heart className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="font-semibold">Personal Growth</h3>
-                    <p className="text-sm text-white/70">Unlock your potential</p>
+                    <h3 className="font-bold text-slate-900 text-lg mb-2">Personal Growth</h3>
+                    <p className="text-slate-600">Unlock your potential and transform your life</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                      <Sparkles className="w-6 h-6" />
+                  <div className="text-center p-6 bg-purple-50 rounded-xl">
+                    <div className="w-16 h-16 bg-purple-600 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                      <User className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="font-semibold">Life Planning</h3>
-                    <p className="text-sm text-white/70">Design your ideal future</p>
+                    <h3 className="font-bold text-slate-900 text-lg mb-2">Life Planning</h3>
+                    <p className="text-slate-600">Design and achieve your ideal future</p>
                   </div>
                 </div>
               </div>
             )}
 
             {step === 1 && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Your Name</Label>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-slate-700 font-medium">Your Name</Label>
                     <Input
                       id="name"
                       value={profile.name || ''}
                       onChange={(e) => updateProfile({ name: e.target.value })}
-                      className="bg-white/10 border-white/20 text-white"
-                      placeholder="Enter your name"
+                      className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
+                      placeholder="Enter your full name"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="age">Your Age</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="age" className="text-slate-700 font-medium">Your Age</Label>
                     <Input
                       id="age"
                       type="number"
                       value={profile.age || ''}
                       onChange={(e) => updateProfile({ age: parseInt(e.target.value) })}
-                      className="bg-white/10 border-white/20 text-white"
+                      className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                       placeholder="Enter your age"
                     />
                   </div>
                 </div>
                 
-                <div>
-                  <Label htmlFor="career">Current Career/Field</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="career" className="text-slate-700 font-medium">Current Career/Field</Label>
                   <Input
                     id="career"
                     value={profile.currentCareer || ''}
                     onChange={(e) => updateProfile({ currentCareer: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white"
+                    className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                     placeholder="What do you do for work?"
                   />
                 </div>
 
-                <div>
-                  <Label>What matters most to you? (Select all that apply)</Label>
-                  <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className="space-y-3">
+                  <Label className="text-slate-700 font-medium">What matters most to you? (Select all that apply)</Label>
+                  <div className="grid grid-cols-2 gap-3">
                     {['Family', 'Career Growth', 'Financial Security', 'Health', 'Creativity', 'Adventure', 'Learning', 'Helping Others'].map((value) => (
                       <button
                         key={value}
                         onClick={() => updateProfile({ values: toggleArrayItem(profile.values || [], value) })}
-                        className={`p-2 rounded-lg text-sm transition-all ${
+                        className={`p-3 rounded-xl text-sm font-medium transition-all ${
                           profile.values?.includes(value)
-                            ? 'bg-yellow-400 text-black'
-                            : 'bg-white/10 hover:bg-white/20'
+                            ? 'bg-blue-600 text-white shadow-lg'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                         }`}
                       >
                         {value}
@@ -171,13 +170,13 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="location">Where do you live?</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="location" className="text-slate-700 font-medium">Where do you live?</Label>
                   <Input
                     id="location"
                     value={profile.location || ''}
                     onChange={(e) => updateProfile({ location: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white"
+                    className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                     placeholder="City, Country"
                   />
                 </div>
@@ -185,10 +184,10 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             )}
 
             {step === 2 && (
-              <div className="space-y-4">
-                <div>
-                  <Label>What are your top 3 goals for the next 5-10 years?</Label>
-                  <div className="space-y-2 mt-2">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <Label className="text-slate-700 font-medium">What are your top 3 goals for the next 5-10 years?</Label>
+                  <div className="space-y-3">
                     {[0, 1, 2].map((index) => (
                       <Input
                         key={index}
@@ -198,30 +197,30 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                           newGoals[index] = e.target.value;
                           updateProfile({ goals: newGoals });
                         }}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3"
                         placeholder={`Goal ${index + 1}`}
                       />
                     ))}
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="dreamScenario">Describe your ideal life 10 years from now</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="dreamScenario" className="text-slate-700 font-medium">Describe your ideal life 10 years from now</Label>
                   <Textarea
                     id="dreamScenario"
                     value={profile.dreamScenario || ''}
                     onChange={(e) => updateProfile({ dreamScenario: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white min-h-[100px]"
+                    className="border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl px-4 py-3 min-h-[120px]"
                     placeholder="Paint a picture of your dream life... Where are you living? What are you doing? Who are you with? How do you feel?"
                   />
                 </div>
 
-                <div>
-                  <Label htmlFor="relationship">Current Relationship Status</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="relationship" className="text-slate-700 font-medium">Current Relationship Status</Label>
                   <select
                     value={profile.relationshipStatus || ''}
                     onChange={(e) => updateProfile({ relationshipStatus: e.target.value })}
-                    className="w-full p-2 rounded-lg bg-white/10 border border-white/20 text-white"
+                    className="w-full p-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 text-slate-700"
                   >
                     <option value="">Select status</option>
                     <option value="single">Single</option>
@@ -236,11 +235,11 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
 
             <Button 
               onClick={handleNext}
-              className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 rounded-xl shadow-lg transition-all duration-200"
               disabled={step === 1 && (!profile.name || !profile.age)}
             >
               {step === steps.length - 1 ? 'Meet Your Future Self' : 'Continue'}
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </CardContent>
         </Card>
