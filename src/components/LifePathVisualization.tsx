@@ -62,9 +62,9 @@ const LifePathVisualization: React.FC<LifePathVisualizationProps> = ({ userProfi
   return (
     <div className="space-y-6">
       {/* Scenario Selection */}
-      <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+      <Card className="bg-white/95 backdrop-blur-lg border-slate-200 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-white">Choose Your Path</CardTitle>
+          <CardTitle className="text-slate-900">Choose Your Path</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -74,8 +74,8 @@ const LifePathVisualization: React.FC<LifePathVisualizationProps> = ({ userProfi
                 onClick={() => setSelectedScenario(key as any)}
                 className={`p-4 rounded-lg text-left transition-all ${
                   selectedScenario === key
-                    ? `bg-gradient-to-r ${scenario.color} text-white`
-                    : 'bg-white/10 text-white hover:bg-white/20'
+                    ? `bg-gradient-to-r ${scenario.color} text-white shadow-lg`
+                    : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200'
                 }`}
               >
                 <h3 className="font-semibold mb-2">{scenario.name}</h3>
@@ -87,9 +87,9 @@ const LifePathVisualization: React.FC<LifePathVisualizationProps> = ({ userProfi
       </Card>
 
       {/* Life Areas Progress */}
-      <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+      <Card className="bg-white/95 backdrop-blur-lg border-slate-200 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-white">Life Areas Progression</CardTitle>
+          <CardTitle className="text-slate-900">Life Areas Progression</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -100,20 +100,20 @@ const LifePathVisualization: React.FC<LifePathVisualizationProps> = ({ userProfi
                   <div className={`w-12 h-12 ${area.color} rounded-full mx-auto flex items-center justify-center`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-white font-medium">{area.name}</h3>
+                  <h3 className="text-slate-900 font-medium">{area.name}</h3>
                   
                   {/* Current vs Future Progress */}
                   <div className="space-y-2">
-                    <div className="text-xs text-white/70">Current: {area.current}%</div>
-                    <div className="w-full bg-white/20 rounded-full h-2">
+                    <div className="text-xs text-slate-600">Current: {area.current}%</div>
+                    <div className="w-full bg-slate-200 rounded-full h-2">
                       <div 
                         className={`${area.color} h-2 rounded-full transition-all duration-1000`}
                         style={{ width: `${area.current}%` }}
                       />
                     </div>
                     
-                    <div className="text-xs text-white/70">Future: {area.future}%</div>
-                    <div className="w-full bg-white/20 rounded-full h-2">
+                    <div className="text-xs text-slate-600">Future: {area.future}%</div>
+                    <div className="w-full bg-slate-200 rounded-full h-2">
                       <div 
                         className={`${area.color} opacity-60 h-2 rounded-full transition-all duration-1000`}
                         style={{ width: `${area.future}%` }}
@@ -128,29 +128,29 @@ const LifePathVisualization: React.FC<LifePathVisualizationProps> = ({ userProfi
       </Card>
 
       {/* Timeline */}
-      <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+      <Card className="bg-white/95 backdrop-blur-lg border-slate-200 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-white">Your {scenarios[selectedScenario].name} Timeline</CardTitle>
+          <CardTitle className="text-slate-900">Your {scenarios[selectedScenario].name} Timeline</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-8 top-4 bottom-4 w-0.5 bg-gradient-to-b from-yellow-400 to-orange-500"></div>
+            <div className="absolute left-8 top-4 bottom-4 w-0.5 bg-gradient-to-b from-blue-400 to-indigo-500"></div>
             
             <div className="space-y-6">
               {scenarios[selectedScenario].milestones.map((milestone, index) => (
                 <div key={index} className="flex items-start space-x-4">
-                  <div className="w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full relative z-10 mt-1"></div>
+                  <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full relative z-10 mt-1"></div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-white font-medium">{milestone.event}</h3>
-                      <span className="text-yellow-400 text-sm font-bold">Age {milestone.age}</span>
+                      <h3 className="text-slate-900 font-medium">{milestone.event}</h3>
+                      <span className="text-blue-600 text-sm font-bold">Age {milestone.age}</span>
                     </div>
                     <div className="flex items-center mt-1">
                       <span className={`text-xs px-2 py-1 rounded-full ${
-                        milestone.category === 'career' ? 'bg-blue-500/20 text-blue-300' :
-                        milestone.category === 'financial' ? 'bg-green-500/20 text-green-300' :
-                        'bg-purple-500/20 text-purple-300'
+                        milestone.category === 'career' ? 'bg-blue-100 text-blue-700' :
+                        milestone.category === 'financial' ? 'bg-green-100 text-green-700' :
+                        'bg-purple-100 text-purple-700'
                       }`}>
                         {milestone.category}
                       </span>
@@ -164,51 +164,51 @@ const LifePathVisualization: React.FC<LifePathVisualizationProps> = ({ userProfi
       </Card>
 
       {/* Impact Analysis */}
-      <Card className="bg-white/10 backdrop-blur-lg border-white/20">
+      <Card className="bg-white/95 backdrop-blur-lg border-slate-200 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-white">Decision Impact Analysis</CardTitle>
+          <CardTitle className="text-slate-900">Decision Impact Analysis</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-white font-medium mb-3">Key Success Factors</h3>
-              <div className="space-y-2 text-sm text-white/80">
+              <h3 className="text-slate-900 font-medium mb-3">Key Success Factors</h3>
+              <div className="space-y-2 text-sm text-slate-700">
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span>Consistent daily habits</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span>Strong relationship network</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span>Continuous learning mindset</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span>Financial discipline</span>
                 </div>
               </div>
             </div>
             
             <div>
-              <h3 className="text-white font-medium mb-3">Potential Challenges</h3>
-              <div className="space-y-2 text-sm text-white/80">
+              <h3 className="text-slate-900 font-medium mb-3">Potential Challenges</h3>
+              <div className="space-y-2 text-sm text-slate-700">
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Work-life balance maintenance</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Economic market changes</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Health maintenance priority</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Staying motivated long-term</span>
                 </div>
               </div>
