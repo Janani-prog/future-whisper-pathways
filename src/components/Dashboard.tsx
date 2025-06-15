@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { UserProfile } from '../types/user';
 import EditProfileDialog from './EditProfileDialog';
@@ -35,12 +34,10 @@ const Dashboard = ({ userProfile, onProfileUpdate }: DashboardProps) => {
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            {userProfile && (
-              <EditProfileDialog 
-                userProfile={userProfile} 
-                onProfileUpdate={onProfileUpdate} 
-              />
-            )}
+            <EditProfileDialog 
+              userProfile={userProfile} 
+              onSave={onProfileUpdate} 
+            />
           </div>
         </div>
 
@@ -113,7 +110,7 @@ const Dashboard = ({ userProfile, onProfileUpdate }: DashboardProps) => {
           {activeTab === 'journal' && (
             <div>
               <h2 className="text-2xl font-bold mb-4">Reflection Journal</h2>
-              <ReflectionJournal userProfile={userProfile} />
+              <ReflectionJournal userId={userProfile?.id} />
             </div>
           )}
 
